@@ -1,12 +1,14 @@
 syntax = "proto3";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
 /**
  * The category the object belongs to
  *
- * All DCS objects are one of the following categories. DCS itself does not use the UNKNOWN enum value but we use it
- * in GRPC as a fallback in case of issues determining the category.
+ * All DCS objects are one of the following categories. DCS itself does not use
+ * the UNKNOWN enum value but we use it in GRPC as a fallback in case of issues
+ * determining the category.
  *
  * See https://wiki.hoggitworld.com/view/DCS_Class_Object for more information
  */
@@ -23,7 +25,8 @@ enum ObjectCategory {
 /**
  * The category the object belongs to
  *
- * Some of these are less than obvious. For example an oilrig counts as a HELIPAD airfield.
+ * Some of these are less than obvious. For example an oilrig counts as a
+ * HELIPAD airfield.
  */
 enum AirbaseCategory {
   AIRDROME = 0;
@@ -34,8 +37,8 @@ enum AirbaseCategory {
 /**
  * Coalitions in DCS
  *
- * The coalitions supported by DCS. The NEUTRAL coalition is a relatively new one and may not be as supported as 
- * the belligerant ones.
+ * The coalitions supported by DCS. The NEUTRAL coalition is a relatively new
+ * one and may not be as supported as the belligerant ones.
  */
 enum Coalition {
   NEUTRAL = 0;
@@ -46,17 +49,19 @@ enum Coalition {
 /**
  * A generic empty response
  *
- * A generic empty response used in APIs that do not return any values to the client
+ * A generic empty response used in APIs that do not return any values to the
+ * client
  */
 message EmptyResponse {}
 
 /**
  * Position of an object in DCS
  *
- * Latitude and Longitude are in Decimal Degrees format (e.g. 41.33 / 37.21). Negative values are used for West of the
- * meridian and south of the equator
+ * Latitude and Longitude are in Decimal Degrees format (e.g. 41.33 / 37.21).
+ * Negative values are used for West of the meridian and south of the equator
  *
- * Altitude is given in meters above Mean Sea Level (MSL) and can be a decimal value.
+ * Altitude is given in meters above Mean Sea Level (MSL) and can be a decimal
+ * value.
  */
 message Position {
   // Latitude in Decimal Degrees format
@@ -64,35 +69,40 @@ message Position {
   // Longitude in Decimal Degrees format
   double lon = 2;
   // Altitude in Meters above Mean Sea Level (MSL)
-  double alt = 3; 
+  double alt = 3;
 }
 
 /**
  * This type is returned if an object category cannot be determined
  *
- * The base object includes the `getName()` function so even for an unknown type we _should_ be able to get the name
+ * The base object includes the `getName()` function so even for an unknown type
+ * we _should_ be able to get the name
  */
-message Unknown {
-  string name = 1;
-}
+message Unknown { string name = 1; }
 
 /**
  * An instance of a DCS Unit
  *
- * A unit is an "active" unit in a DCS mission. This means it has an attached AI that moves and shoots. Units include
- * aircraft, ground units, ships, weapons etc.
+ * A unit is an "active" unit in a DCS mission. This means it has an attached AI
+ * that moves and shoots. Units include aircraft, ground units, ships, weapons
+ * etc.
  */
 message Unit {
-  uint32 id = 1; // The DCS generated ID
+  uint32 id = 1;   // The DCS generated ID
   string name = 2; // The name of the unit as assigned in the mission editor
-  string callsign = 3; // The DCS assigned callsign if one exists. e.g. "Enfield 11"
+  string callsign =
+      3; // The DCS assigned callsign if one exists. e.g. "Enfield 11"
   Coalition coalition = 4; // The coalition the unit belongs to
-  string type = 5; // The DCS type-name of the unit. e.g "MiG-29A", "ZSU_57_2" or "Hawk ln"
+  string type = 5; // The DCS type-name of the unit. e.g "MiG-29A", "ZSU_57_2"
+                   // or "Hawk ln"
   Position position = 6; // The position of the unit
-  optional string player_name = 7; // The name of the player if one is in control of the unit
-  string group_name = 8; // The name of the group that the unit belongs to
-  uint32 number_in_group = 9; // The number of this unit in the group. Does not change as units are destroyed
-  double speed = 10; // The horizontal speed of the unit. If it is doing mach one straight up then the speed will be 0
+  optional string player_name =
+      7; // The name of the player if one is in control of the unit
+  string group_name = 8;      // The name of the group that the unit belongs to
+  uint32 number_in_group = 9; // The number of this unit in the group. Does not
+                              // change as units are destroyed
+  double speed = 10;   // The horizontal speed of the unit. If it is doing mach
+                       // one straight up then the speed will be 0
   double heading = 11; // The heading of the unit
 }
 
@@ -100,54 +110,55 @@ message Unit {
  * An instance of a DCS group
  */
 message Group {
-  uint32 id = 1; // The DCS generated ID
+  uint32 id = 1;   // The DCS generated ID
   string name = 2; // The name of the group as assigned in the mission editor
 }
 
 /**
  * An instance of a DCS weapon
  *
- * These weapons include everything from autocannon HE shells up to massive ship-killer missiles
+ * These weapons include everything from autocannon HE shells up to massive
+ * ship-killer missiles
  */
 message Weapon {
-	uint32 id = 1; // The DCS generated ID
-	string type = 2; // The DCS type-name of the weapon. e.g "Matra_S530D", "HAWK_RAKETA" or "weapons.shells.53-UOR-281U"
-	Position position = 3;  // The position of the Weapon
+  uint32 id = 1;         // The DCS generated ID
+  string type = 2;       // The DCS type-name of the weapon. e.g "Matra_S530D",
+                         // "HAWK_RAKETA" or "weapons.shells.53-UOR-281U"
+  Position position = 3; // The position of the Weapon
 }
 
-message Static {
-}
+message Static {}
 
-message Scenery {
-}
+message Scenery {}
 
 /**
  * An instance of a DCS Airfield
  *
  */
 message Airbase {
-  optional uint32 id = 1; // The DCS generated ID. Only used when the airfield is also a unit (e.g. an Aicraft Carrier)
-  string name = 2; // TODO: Fill this in
-  string callsign = 3; // TODO: Fill this in
-  Coalition coalition = 4; // The coalition the unit belongs to. This can change mid-mission if an airfield is captured
-  Position position = 6; // The position of the center point of the airfield.
+  optional uint32 id = 1;  // The DCS generated ID. Only used when the airfield
+                           // is also a unit (e.g. an Aicraft Carrier)
+  string name = 2;         // TODO: Fill this in
+  string callsign = 3;     // TODO: Fill this in
+  Coalition coalition = 4; // The coalition the unit belongs to. This can change
+                           // mid-mission if an airfield is captured
+  Position position = 6;   // The position of the center point of the airfield.
   AirbaseCategory category = 7; // What category the airfield belongs to.
-  string display_name = 8; // TODO: Fill this in
+  string display_name = 8;      // TODO: Fill this in
 }
 
-message Cargo {
-}
+message Cargo {}
 
 message Initiator {
-	oneof initiator {
-		Unknown unknown = 1;
-		Unit unit = 2;
-		Weapon weapon = 3;
-		Static static = 4;
-		Scenery scenery = 5;
-		Airbase airbase = 6;
-		Cargo cargo = 7;
-	}
+  oneof initiator {
+    Unknown unknown = 1;
+    Unit unit = 2;
+    Weapon weapon = 3;
+    Static static = 4;
+    Scenery scenery = 5;
+    Airbase airbase = 6;
+    Cargo cargo = 7;
+  }
 }
 
 message Target {
@@ -165,11 +176,11 @@ message Target {
 // End of Object subtypes
 
 message MarkPanel {
-	uint32 id = 1; 
-	double time = 2; // I have no idea what this time value means
-	Unit initiator = 3;
-	optional Coalition coalition = 4;
-	optional uint32 group_id = 5;
-	optional string text = 6;
-	Position position = 7;
+  uint32 id = 1;
+  double time = 2; // I have no idea what this time value means
+  Unit initiator = 3;
+  optional Coalition coalition = 4;
+  optional uint32 group_id = 5;
+  optional string text = 6;
+  Position position = 7;
 }

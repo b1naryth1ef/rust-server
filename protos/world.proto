@@ -3,17 +3,12 @@ syntax = "proto3";
 import "common.proto";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
-message GetAirbasesRequest {
-  optional Coalition coalition = 1;
-}
+message GetAirbasesRequest { optional Coalition coalition = 1; }
 
-message GetAirbasesResponse {
-  repeated Airbase airbases = 1;
-}
+message GetAirbasesResponse { repeated Airbase airbases = 1; }
 
 message GetMarkPanelsRequest {}
 
-message GetMarkPanelsResponse {
-	repeated MarkPanel mark_panels = 1;
-}
+message GetMarkPanelsResponse { repeated MarkPanel mark_panels = 1; }

@@ -3,6 +3,7 @@ syntax = "proto3";
 import "common.proto";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
 message StreamEventsRequest {}
 
@@ -19,8 +20,9 @@ message Event {
 
   // Occurs when an object is hit by a weapon.
   message HitEvent {
-    // The object that fired the weapon. Not set when for example fyling an aircraft into a
-    // building (building will be the target and weapon_name the name of the aircraft).
+    // The object that fired the weapon. Not set when for example fyling an
+    // aircraft into a building (building will be the target and weapon_name the
+    // name of the aircraft).
     optional Initiator initiator = 1;
     // The weapon that the target has been hit with.
     Weapon weapon = 2;
@@ -116,8 +118,8 @@ message Event {
     Initiator initiator = 1;
   }
 
-  // Occurs when a system on an aircraft fails. This can be due to damage or due to random failures
-  // set up in the mission editor.
+  // Occurs when a system on an aircraft fails. This can be due to damage or due
+  // to random failures set up in the mission editor.
   message DetailedFailureEvent {
     // The target the failure occurred for.
     Target target = 1;
@@ -232,14 +234,13 @@ message Event {
     Weapon weapon = 2;
     // The object that has been killed.
     Target target = 3;
-    // The name of the weapon that killed the target (exists instead of weapon for weapons that
-    // trigger the shooting start and end events).
+    // The name of the weapon that killed the target (exists instead of weapon
+    // for weapons that trigger the shooting start and end events).
     string weapon_name = 4;
   }
 
   // A score change (doesn't contain any useful information)
-  message ScoreEvent {
-  }
+  message ScoreEvent {}
 
   // A unit got destroyed.
   message UnitLostEvent {
@@ -271,7 +272,8 @@ message Event {
     string weapon_name = 2;
   }
 
-  // Occurs when an aircraft receives an LSO rating after recovering on an aircraft carrier.
+  // Occurs when an aircraft receives an LSO rating after recovering on an
+  // aircraft carrier.
   message LandingQualityMarkEvent {
     // The aircraft that received the rating.
     Initiator initiator = 1;
@@ -323,16 +325,15 @@ message Event {
 }
 
 message StreamUnitsRequest {
-  // The poll rate in seconds at which the gRPC server communicates with the DCS mission to retrieve
-  // the latest unit positions. The lower the `poll_rate` the higher the amount of requests send to
-  // to the DCS mission.
-  // Default: 5
+  // The poll rate in seconds at which the gRPC server communicates with the DCS
+  // mission to retrieve the latest unit positions. The lower the `poll_rate`
+  // the higher the amount of requests send to to the DCS mission. Default: 5
   optional uint32 poll_rate = 1;
 
-  // The maximum backoff in seconds which the gRPC postpones polling units that haven't moved
-  // recently. This is an optimization to dynamically reduce the poll rate for stationary units.
-  // Set it to the same value as `poll_rate` to disable the backoff.
-  // Default: 30
+  // The maximum backoff in seconds which the gRPC postpones polling units that
+  // haven't moved recently. This is an optimization to dynamically reduce the
+  // poll rate for stationary units. Set it to the same value as `poll_rate` to
+  // disable the backoff. Default: 30
   optional uint32 max_backoff = 2;
 }
 

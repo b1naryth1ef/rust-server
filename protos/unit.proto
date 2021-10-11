@@ -3,37 +3,24 @@ syntax = "proto3";
 import "common.proto";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
-message GetRadarRequest {
-  string name = 1;
-}
+message GetRadarRequest { string name = 1; }
 
 message GetRadarResponse {
   bool active = 1;
   Target target = 2;
 }
 
-message GetUnitPositionRequest {
-	string name = 1;
-}
+message GetUnitPositionRequest { string name = 1; }
 
-message GetUnitPositionResponse {
-  Position position = 1;
-}
+message GetUnitPositionResponse { Position position = 1; }
 
-message GetUnitPlayerNameRequest {
-	string name = 1;
-}
+message GetUnitPlayerNameRequest { string name = 1; }
 
-message GetUnitPlayerNameResponse {
-  optional string player_name = 1;
-}
+message GetUnitPlayerNameResponse { optional string player_name = 1; }
 
-message GetUnitDescriptorRequest {
-  string name = 1;
-}
+message GetUnitDescriptorRequest { string name = 1; }
 
 // TODO fill these in as and when we need em
-message GetUnitDescriptorResponse {
-  repeated string attributes = 1;
-}
+message GetUnitDescriptorResponse { repeated string attributes = 1; }

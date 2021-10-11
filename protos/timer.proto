@@ -1,21 +1,16 @@
 syntax = "proto3";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
 message GetTimeRequest {}
 
-message GetTimeResponse {
-	double time = 1;
-}
+message GetTimeResponse { double time = 1; }
 
 message GetAbsoluteTimeRequest {}
 
-message GetAbsoluteTimeResponse {
-	double time = 1;
-}
+message GetAbsoluteTimeResponse { double time = 1; }
 
 message GetTimeZeroRequest {}
 
-message GetTimeZeroResponse {
-	double time = 1;
-}
+message GetTimeZeroResponse { double time = 1; }

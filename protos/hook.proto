@@ -1,14 +1,11 @@
 syntax = "proto3";
 
-import "common.proto";
-
 package dcs.hook;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
 message GetMissionNameRequest {}
 
-message GetMissionNameResponse {
-  string name = 1;
-}
+message GetMissionNameResponse { string name = 1; }
 
 message StreamChatRequest {}
 

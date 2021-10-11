@@ -4,20 +4,15 @@ import "common.proto";
 import "group.proto";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
-message GetPlayersRequest {
-	Coalition coalition = 1;
-}
+message GetPlayersRequest { Coalition coalition = 1; }
 
-message GetPlayersResponse {
-	repeated Unit units = 1;
-}
+message GetPlayersResponse { repeated Unit units = 1; }
 
 message GetGroupsRequest {
   Coalition coalition = 1;
   optional dcs.group.GroupCategory category = 2;
 }
 
-message GetGroupsResponse {
-  repeated Group groups = 1;
-}
+message GetGroupsResponse { repeated Group groups = 1; }

@@ -14,150 +14,161 @@ import "unit.proto";
 import "world.proto";
 
 package dcs;
+option go_package = "github.com/b1naryth1ef/dcs-grpc-go-client/dcs";
 
 // https://wiki.hoggitworld.com/view/DCS_singleton_atmosphere
 service Atmosphere {
-	// https://wiki.hoggitworld.com/view/DCS_func_getWind
-	rpc GetWind(GetWindRequest) returns (GetWindResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getWind
+  rpc GetWind(GetWindRequest) returns (GetWindResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getWindWithTurbulence
-	rpc GetWindWithTurbulence(GetWindWithTurbulenceRequest) returns (GetWindWithTurbulenceResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getWindWithTurbulence
+  rpc GetWindWithTurbulence(GetWindWithTurbulenceRequest)
+      returns (GetWindWithTurbulenceResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getWindWithTurbulence
-	rpc GetTemperatureAndPressure(GetTemperatureAndPressureRequest) returns (GetTemperatureAndPressureResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getWindWithTurbulence
+  rpc GetTemperatureAndPressure(GetTemperatureAndPressureRequest)
+      returns (GetTemperatureAndPressureResponse) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_singleton_coalition
 service Coalitions {
-	// https://wiki.hoggitworld.com/view/DCS_func_getPlayers
-	rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getPlayers
+  rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getGroups
-	rpc GetGroups(GetGroupsRequest) returns (GetGroupsResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getGroups
+  rpc GetGroups(GetGroupsRequest) returns (GetGroupsResponse) {}
 }
 
 service Controllers {
-    // https://wiki.hoggitworld.com/view/DCS_option_alarmState
-	rpc SetAlarmState(SetAlarmStateRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_option_alarmState
+  rpc SetAlarmState(SetAlarmStateRequest) returns (EmptyResponse) {}
 }
 
-// The Custom service is for APIs that do not map to the "standard library" of DCS APIs provided
-// by Eagle Dynamics.
+// The Custom service is for APIs that do not map to the "standard library" of
+// DCS APIs provided by Eagle Dynamics.
 //
 // Expect to find APIs here that may be useful for mission frameworks etc.
 service Custom {
-	// DCT Function
-	rpc RequestMissionAssignment(MissionAssignmentRequest) returns (MissionAssignmentResponse) {}
+  // DCT Function
+  rpc RequestMissionAssignment(MissionAssignmentRequest)
+      returns (MissionAssignmentResponse) {}
 
-	// DCT Function
-	rpc JoinMission(MissionJoinRequest) returns (MissionJoinResponse) {}
+  // DCT Function
+  rpc JoinMission(MissionJoinRequest) returns (MissionJoinResponse) {}
 
-	// Evaluate some Lua inside of the mission and return the result as a JSON string.
-	// Disabled by default.
-	rpc Eval(EvalRequest) returns (EvalResponse) {}
+  // Evaluate some Lua inside of the mission and return the result as a JSON
+  // string. Disabled by default.
+  rpc Eval(EvalRequest) returns (EvalResponse) {}
 }
 
 // Contains the streaming APIs that streaming information out of the DCS server.
 service Mission {
-	// Streams DCS game generated Events.
-	// See https://wiki.hoggitworld.com/view/Category:Events
-	rpc StreamEvents(StreamEventsRequest) returns (stream Event) {}
+  // Streams DCS game generated Events.
+  // See https://wiki.hoggitworld.com/view/Category:Events
+  rpc StreamEvents(StreamEventsRequest) returns (stream Event) {}
 
-	// Streams unit updates
-	// Provides similar functionality as Tacview but at a much lower update rate
-	// so puts less load on the server. Suitable for things like online maps but
-	// not as a Tacview replacement.
-	rpc StreamUnits(StreamUnitsRequest) returns (stream UnitUpdate) {}
+  // Streams unit updates
+  // Provides similar functionality as Tacview but at a much lower update rate
+  // so puts less load on the server. Suitable for things like online maps but
+  // not as a Tacview replacement.
+  rpc StreamUnits(StreamUnitsRequest) returns (stream UnitUpdate) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_singleton_timer
 service Timer {
-	// https://wiki.hoggitworld.com/view/DCS_func_getTime
-	rpc GetTime(GetTimeRequest) returns (GetTimeResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getTime
+  rpc GetTime(GetTimeRequest) returns (GetTimeResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getAbsTime
-	rpc GetAbsoluteTime(GetAbsoluteTimeRequest) returns (GetAbsoluteTimeResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getAbsTime
+  rpc GetAbsoluteTime(GetAbsoluteTimeRequest)
+      returns (GetAbsoluteTimeResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getTime0
-	rpc GetTimeZero(GetTimeZeroRequest) returns (GetTimeZeroResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getTime0
+  rpc GetTimeZero(GetTimeZeroRequest) returns (GetTimeZeroResponse) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_singleton_trigger
 service Triggers {
-	// https://wiki.hoggitworld.com/view/DCS_func_outText
-	rpc OutText(OutTextRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_outText
+  rpc OutText(OutTextRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_outTextForCoalition
-	rpc OutTextForCoalition(OutTextForCoalitionRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_outTextForCoalition
+  rpc OutTextForCoalition(OutTextForCoalitionRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_outTextForGroup
-	rpc OutTextForGroup(OutTextForGroupRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_outTextForGroup
+  rpc OutTextForGroup(OutTextForGroupRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getUserFlag
-	rpc GetUserFlag(GetUserFlagRequest) returns (GetUserFlagResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getUserFlag
+  rpc GetUserFlag(GetUserFlagRequest) returns (GetUserFlagResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_setUserFlag
-	rpc SetUserFlag(SetUserFlagRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_setUserFlag
+  rpc SetUserFlag(SetUserFlagRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_markToAll
-	rpc MarkToAll(MarkToAllRequest) returns (MarkToAllResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_markToAll
+  rpc MarkToAll(MarkToAllRequest) returns (MarkToAllResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_markToCoalition
-	rpc MarkToCoalition(MarkToCoalitionRequest) returns (MarkToCoalitionResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_markToCoalition
+  rpc MarkToCoalition(MarkToCoalitionRequest)
+      returns (MarkToCoalitionResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_markToGroup
-	rpc MarkToGroup(MarkToGroupRequest) returns (MarkToGroupResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_markToGroup
+  rpc MarkToGroup(MarkToGroupRequest) returns (MarkToGroupResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_removeMark
-	rpc RemoveMark(RemoveMarkRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_removeMark
+  rpc RemoveMark(RemoveMarkRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_explosion
-	rpc Explosion(ExplosionRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_explosion
+  rpc Explosion(ExplosionRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_smoke
-	rpc Smoke(SmokeRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_smoke
+  rpc Smoke(SmokeRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_illuminationBomb
-	rpc IlluminationBomb(IlluminationBombRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_illuminationBomb
+  rpc IlluminationBomb(IlluminationBombRequest) returns (EmptyResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_signalFlare
-	rpc SignalFlare(SignalFlareRequest) returns (EmptyResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_signalFlare
+  rpc SignalFlare(SignalFlareRequest) returns (EmptyResponse) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_Class_Group
 service Groups {
-	// https://wiki.hoggitworld.com/view/DCS_func_getUnits
-	rpc GetUnits(dcs.group.GetUnitsRequest) returns (dcs.group.GetUnitsResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getUnits
+  rpc GetUnits(dcs.group.GetUnitsRequest) returns (dcs.group.GetUnitsResponse) {
+  }
 }
 
 // APis that are part of the hook environment
 service Hook {
-    // https://wiki.hoggitworld.com/view/DCS_func_getMissionName
-	rpc GetMissionName(dcs.hook.GetMissionNameRequest) returns (dcs.hook.GetMissionNameResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getMissionName
+  rpc GetMissionName(dcs.hook.GetMissionNameRequest)
+      returns (dcs.hook.GetMissionNameResponse) {}
 
-	// Stream all chat messages.
-	rpc StreamChat(dcs.hook.StreamChatRequest) returns (stream dcs.hook.ChatMessage) {}
+  // Stream all chat messages.
+  rpc StreamChat(dcs.hook.StreamChatRequest)
+      returns (stream dcs.hook.ChatMessage) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_Class_Unit
 service Units {
-	// https://wiki.hoggitworld.com/view/DCS_func_getRadar
-	rpc GetRadar(GetRadarRequest) returns (GetRadarResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getRadar
+  rpc GetRadar(GetRadarRequest) returns (GetRadarResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getPoint
-	rpc GetPosition(GetUnitPositionRequest) returns (GetUnitPositionResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getPoint
+  rpc GetPosition(GetUnitPositionRequest) returns (GetUnitPositionResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getPlayerName
-	rpc GetPlayerName(GetUnitPlayerNameRequest) returns (GetUnitPlayerNameResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getPlayerName
+  rpc GetPlayerName(GetUnitPlayerNameRequest)
+      returns (GetUnitPlayerNameResponse) {}
 
-	rpc GetUnitDescriptor(GetUnitDescriptorRequest) returns (GetUnitDescriptorResponse) {}
+  rpc GetUnitDescriptor(GetUnitDescriptorRequest)
+      returns (GetUnitDescriptorResponse) {}
 }
 
 // https://wiki.hoggitworld.com/view/DCS_singleton_world
 service World {
-	// https://wiki.hoggitworld.com/view/DCS_func_getAirbases
-	rpc GetAirbases(GetAirbasesRequest) returns (GetAirbasesResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getAirbases
+  rpc GetAirbases(GetAirbasesRequest) returns (GetAirbasesResponse) {}
 
-	// https://wiki.hoggitworld.com/view/DCS_func_getMarkPanels
-	rpc GetMarkPanels(GetMarkPanelsRequest) returns (GetMarkPanelsResponse) {}
+  // https://wiki.hoggitworld.com/view/DCS_func_getMarkPanels
+  rpc GetMarkPanels(GetMarkPanelsRequest) returns (GetMarkPanelsResponse) {}
 }
